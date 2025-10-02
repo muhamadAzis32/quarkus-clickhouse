@@ -6,6 +6,7 @@ import lombok.Data;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.iconpln.master_unit_upi.entity.MasterUnitupi;
 import org.iconpln.master_unit_upi.service.UnitUpiService;
 import org.iconpln.util.ResponseModel;
@@ -22,6 +23,7 @@ import java.util.Optional;
 @Path("/api/unitupi")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Tag(name = "Master UnitUpi", description = "Master UnitUpi Controller")
 public class UnitUpiController {
 
     private final UnitUpiService service;

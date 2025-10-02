@@ -67,7 +67,7 @@ public class UnitUpiRepository {
      * @throws SQLException jika terjadi error database
      */
     public Optional<MasterUnitupi> findByUnitupi(String unitupi) throws SQLException {
-        String sql = "SELECT * FROM master_unitupi WHERE unitupi = ? AND __deleted = 0";
+        String sql = "SELECT * FROM master_unitupi FINAL WHERE unitupi = ? AND __deleted = 0";
         log.debug("Finding by unitupi: {}", unitupi);
 
         try (Connection conn = dataSource.getConnection();
