@@ -1,24 +1,9 @@
-package org.iconpln.example.entity;
+package org.iconpln.master_unit_upi.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 /**
  * Entity untuk table master_unitupi di ClickHouse
- *
- * Table Schema:
- * CREATE TABLE IF NOT EXISTS master_unitupi (
- *     unitupi String,
- *     alamat String,
- *     kota String,
- *     manager String,
- *     nama String,
- *     nama_singkat String,
- *     satuan String,
- *     telepon String,
- *     __ts_ms UInt64 DEFAULT 0,
- *     deleted UInt8 DEFAULT 0
- * ) ENGINE = ReplacingMergeTree(__ts_ms)
- * ORDER BY unitupi;
  *
  * Lombok Annotations:
  * @Data - Generate getters, setters, toString, equals, hashCode
@@ -78,9 +63,9 @@ public class MasterUnitupi {
      * Timestamp untuk ReplacingMergeTree
      * Mapping ke kolom __ts_ms di database
      */
-    @JsonProperty("__ts_ms")
-    @Builder.Default
-    private Long tsMs = System.currentTimeMillis();
+//    @JsonProperty("__ts_ms")
+//    @Builder.Default
+//    private Long tsMs = System.currentTimeMillis();
 
     /**
      * Flag soft delete
