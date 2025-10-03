@@ -75,6 +75,18 @@
             <classifier>http</classifier>
         </dependency>
 
+        <!-- POSTGRESQL JDBC DRIVER -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+
+        <!-- HIBERNATE ORM PANACHE (untuk PostgreSQL) -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm-panache</artifactId>
+        </dependency>
+
         <!-- HEALTH CHECK -->
         <dependency>
             <groupId>io.quarkus</groupId>

@@ -1,7 +1,9 @@
 package org.iconpln.master_unit_upi.repository;
 
 import io.agroal.api.AgroalDataSource;
+import io.quarkus.agroal.DataSource;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.iconpln.master_unit_upi.entity.MasterUnitupi;
@@ -28,10 +30,13 @@ import java.util.Optional;
 public class UnitUpiRepository {
 
     /**
-     * DataSource akan di-inject otomatis oleh Quarkus
-     * Final = required field untuk @RequiredArgsConstructor
+     * Inject datasource ClickHouse yang sudah dikonfigurasi
+     * @DataSource("clickhouse") = mengambil config dari application.properties
+     * dengan prefix: quarkus.datasource.clickhouse.*
      */
-    private final AgroalDataSource dataSource;
+    @Inject
+    @DataSource("clickhouse")
+    AgroalDataSource clickhouseDataSource;
 
     /**
      * Mengambil semua data yang tidak dihapus (deleted = 0)
@@ -45,7 +50,7 @@ public class UnitUpiRepository {
 
         List<MasterUnitupi> results = new ArrayList<>();
 
-        try (Connection conn = dataSource.getConnection();
+        try (Connection conn = clickhouseDataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -70,7 +75,7 @@ public class UnitUpiRepository {
         String sql = "SELECT * FROM master_unitupi FINAL WHERE unitupi = ? AND __deleted = 0";
         log.debug("Finding by unitupi: {}", unitupi);
 
-        try (Connection conn = dataSource.getConnection();
+        try (Connection conn = clickhouseDataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, unitupi);
@@ -102,7 +107,7 @@ public class UnitUpiRepository {
 
         List<MasterUnitupi> results = new ArrayList<>();
 
-        try (Connection conn = dataSource.getConnection();
+        try (Connection conn = clickhouseDataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, "%" + keyword + "%");
