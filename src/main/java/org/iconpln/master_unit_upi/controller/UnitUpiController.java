@@ -1,5 +1,6 @@
 package org.iconpln.master_unit_upi.controller;
 
+import io.smallrye.openapi.internal.models.responses.APIResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.Data;
@@ -9,6 +10,7 @@ import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.iconpln.master_unit_upi.entity.MasterUnitupi;
 import org.iconpln.master_unit_upi.service.UnitUpiService;
+import org.iconpln.util.PagedResult;
 import org.iconpln.util.ResponseModel;
 
 import java.util.List;
@@ -42,6 +44,45 @@ public class UnitUpiController {
 
         } catch (Exception e) {
             log.error("Error pada getAllUnits", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(ErrorResponse.of(e.getMessage()))
+                    .build();
+        }
+    }
+
+    /**
+     * GET /api/unitupi/paginated?page=1&size=10
+     * Mendapatkan data unit UPI dengan pagination
+     *
+     * @param page Nomor halaman (default: 1)
+     * @param size Jumlah data per halaman (default: 10, max: 100)
+     * @return Response dengan PagedResult
+     */
+    @GET
+    @Path("/paginated")
+    public Response getAllUnitsPaginated(
+            @QueryParam("page") @DefaultValue("1") int page,
+            @QueryParam("size") @DefaultValue("10") int size) {
+        try {
+            log.info("REST: GET /api/unitupi/paginated?page={}&size={}", page, size);
+
+            PagedResult<MasterUnitupi> pagedResult = service.getAllUnitsPaginated(page, size);
+
+            return Response.ok(new ResponseModel(
+                            "OK",
+                            true,
+                            200,
+                            pagedResult))
+                    .build();
+
+        } catch (IllegalArgumentException e) {
+            log.warn("Invalid pagination parameters: {}", e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(ErrorResponse.of(e.getMessage()))
+                    .build();
+
+        } catch (Exception e) {
+            log.error("Error pada getAllUnitsPaginated", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity(ErrorResponse.of(e.getMessage()))
                     .build();

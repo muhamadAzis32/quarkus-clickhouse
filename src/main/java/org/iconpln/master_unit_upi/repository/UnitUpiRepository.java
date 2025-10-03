@@ -64,6 +64,68 @@ public class UnitUpiRepository {
         return results;
     }
 
+
+    /**
+     * Count total records yang aktif
+     *
+     * @return Total records
+     * @throws SQLException jika terjadi error database
+     */
+    public long count() throws SQLException {
+        String sql = "SELECT COUNT(*) as total FROM master_unitupi WHERE __deleted = 0";
+        log.debug("Counting total records");
+
+        try (Connection conn = clickhouseDataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                long total = rs.getLong("total");
+                log.debug("Total records: {}", total);
+                return total;
+            }
+        }
+
+        return 0;
+    }
+
+
+    /**
+     * Mengambil data dengan pagination
+     *
+     * @param page Nomor halaman (mulai dari 1)
+     * @param size Jumlah data per halaman
+     * @return List of MasterUnitupi
+     * @throws SQLException jika terjadi error database
+     */
+    public List<MasterUnitupi> findAllPaginated(int page, int size) throws SQLException {
+        int offset = (page - 1) * size;
+
+        String sql = "SELECT * FROM master_unitupi WHERE __deleted = 0 ORDER BY unitupi LIMIT ? OFFSET ?";
+
+        log.debug("Executing paginated query: page={}, size={}, offset={}", page, size, offset);
+
+        List<MasterUnitupi> results = new ArrayList<>();
+
+        try (Connection conn = clickhouseDataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, size);
+            stmt.setInt(2, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapResultSetToEntity(rs));
+                }
+            }
+
+            log.debug("Found {} records for page {}", results.size(), page);
+        }
+
+        return results;
+    }
+
+
     /**
      * Mengambil data berdasarkan unitupi (primary key)
      *
