@@ -1,4 +1,4 @@
-package org.iconpln.master_unit_upi.entity;
+package org.iconpln.master_unitupi.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 

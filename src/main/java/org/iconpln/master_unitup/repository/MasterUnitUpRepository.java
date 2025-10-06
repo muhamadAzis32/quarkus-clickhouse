@@ -6,7 +6,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iconpln.master_unit_upi.entity.MasterUnitupi;
 import org.iconpln.master_unitup.entity.MasterUnitUp;
 
 import java.sql.Connection;
@@ -15,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Repository untuk akses data master_unitup di ClickHouse

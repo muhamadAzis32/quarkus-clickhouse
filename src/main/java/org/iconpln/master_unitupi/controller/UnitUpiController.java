@@ -1,6 +1,5 @@
-package org.iconpln.master_unit_upi.controller;
+package org.iconpln.master_unitupi.controller;
 
-import io.smallrye.openapi.internal.models.responses.APIResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.Data;
@@ -8,8 +7,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import org.iconpln.master_unit_upi.entity.MasterUnitupi;
-import org.iconpln.master_unit_upi.service.UnitUpiService;
+import org.iconpln.master_unitupi.entity.MasterUnitupi;
+import org.iconpln.master_unitupi.service.UnitUpiService;
 import org.iconpln.util.PagedResult;
 import org.iconpln.util.ResponseModel;
 
@@ -22,7 +21,7 @@ import java.util.Optional;
  */
 @Slf4j
 @RequiredArgsConstructor
-@Path("/api/unitupi")
+@Path("/api/unitUpi")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Master UnitUpi", description = "Master UnitUpi Controller")

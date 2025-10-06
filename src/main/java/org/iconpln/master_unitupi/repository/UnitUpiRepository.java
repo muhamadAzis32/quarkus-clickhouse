@@ -1,4 +1,4 @@
-package org.iconpln.master_unit_upi.repository;
+package org.iconpln.master_unitupi.repository;
 
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.agroal.DataSource;
@@ -6,7 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iconpln.master_unit_upi.entity.MasterUnitupi;
+import org.iconpln.master_unitupi.entity.MasterUnitupi;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

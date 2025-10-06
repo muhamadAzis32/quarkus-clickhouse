@@ -1,9 +1,9 @@
-package org.iconpln.master_unit_upi.service;
+package org.iconpln.master_unitupi.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.iconpln.master_unit_upi.entity.MasterUnitupi;
-import org.iconpln.master_unit_upi.repository.UnitUpiRepository;
+import org.iconpln.master_unitupi.entity.MasterUnitupi;
+import org.iconpln.master_unitupi.repository.UnitUpiRepository;
 import org.iconpln.util.PagedResult;
 
 import java.sql.SQLException;
