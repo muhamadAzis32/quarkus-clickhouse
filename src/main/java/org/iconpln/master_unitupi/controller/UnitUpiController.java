@@ -134,7 +134,6 @@ public class UnitUpiController {
                             units))
                     .build();
 
-
         } catch (Exception e) {
             log.error("Error pada searchUnits", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -143,11 +142,5 @@ public class UnitUpiController {
         }
     }
 
-//    /**
-//     * Error Response DTO dengan Lombok
-//     */
-//    @Data(staticConstructor = "of")
-//    public static class ErrorResponse {
-//        private final String message;
-//    }
+
 }

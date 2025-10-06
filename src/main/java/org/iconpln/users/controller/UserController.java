@@ -23,7 +23,7 @@ import java.util.Map;
  * Base Path: /api/data
  * Semua endpoint dibawah path ini
  */
-@Path("/api/data")
+//@Path("/api/data")
 @Tag(name = "Data Users", description = "Endpoints untuk mengakses ClickHouse dan PostgreSQL")
 public class UserController {
 
