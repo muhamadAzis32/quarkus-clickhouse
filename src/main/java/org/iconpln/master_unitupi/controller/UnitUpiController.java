@@ -9,7 +9,8 @@ import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.iconpln.master_unitupi.entity.MasterUnitupi;
 import org.iconpln.master_unitupi.service.UnitUpiService;
-import org.iconpln.util.PagedResult;
+import org.iconpln.util.ErrorResponse;
+import org.iconpln.util.PagedResultDto;
 import org.iconpln.util.ResponseModel;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.Optional;
  */
 @Slf4j
 @RequiredArgsConstructor
-@Path("/api/unitUpi")
+@Path("/api/uniupi")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Master UnitUpi", description = "Master UnitUpi Controller")
@@ -65,13 +66,13 @@ public class UnitUpiController {
         try {
             log.info("REST: GET /api/unitupi/paginated?page={}&size={}", page, size);
 
-            PagedResult<MasterUnitupi> pagedResult = service.getAllUnitsPaginated(page, size);
+            PagedResultDto<MasterUnitupi> pagedResultDto = service.getAllUnitsPaginated(page, size);
 
             return Response.ok(new ResponseModel(
                             "OK",
                             true,
                             200,
-                            pagedResult))
+                            pagedResultDto))
                     .build();
 
         } catch (IllegalArgumentException e) {
@@ -142,11 +143,11 @@ public class UnitUpiController {
         }
     }
 
-    /**
-     * Error Response DTO dengan Lombok
-     */
-    @Data(staticConstructor = "of")
-    public static class ErrorResponse {
-        private final String message;
-    }
+//    /**
+//     * Error Response DTO dengan Lombok
+//     */
+//    @Data(staticConstructor = "of")
+//    public static class ErrorResponse {
+//        private final String message;
+//    }
 }

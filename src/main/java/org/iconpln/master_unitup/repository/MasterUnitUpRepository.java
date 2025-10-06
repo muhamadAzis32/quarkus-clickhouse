@@ -63,6 +63,52 @@ public class MasterUnitUpRepository {
         return results;
     }
 
+    public List<MasterUnitUp> findAllPaginated(int page, int size) throws SQLException{
+        int offset = (page - 1) * size;
+
+        String sql = "SELECT * FROM master_unitup FINAL WHERE __deleted = 0 ORDER BY unitup LIMIT ? OFFSET ?";
+
+        log.debug("Executing paginated query: page={}, size={}, offset={}", page, size, offset);
+
+        List<MasterUnitUp> results = new ArrayList<>();
+
+        try (Connection conn = clickhouseDataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, size);
+            stmt.setInt(2, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapResultSetToEntity(rs));
+                }
+            }
+
+            log.debug("Found {} records for page {}", results.size(), page);
+        }
+
+
+        return results;
+    }
+
+    public long count() throws SQLException {
+        String sql = "SELECT COUNT(*) as total FROM master_unitup WHERE __deleted = 0";
+        log.debug("Counting total records");
+
+        try (Connection conn = clickhouseDataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                long total = rs.getLong("total");
+                log.debug("Total records: {}", total);
+                return total;
+            }
+        }
+
+        return 0;
+    }
+
     /**
      * Helper method untuk mapping ResultSet ke Entity
      * Menggunakan Lombok Builder pattern

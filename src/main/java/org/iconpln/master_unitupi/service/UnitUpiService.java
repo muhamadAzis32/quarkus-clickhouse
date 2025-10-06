@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.iconpln.master_unitupi.entity.MasterUnitupi;
 import org.iconpln.master_unitupi.repository.UnitUpiRepository;
-import org.iconpln.util.PagedResult;
+import org.iconpln.util.PagedResultDto;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -42,7 +42,7 @@ public class UnitUpiService {
      * @return PagedResult dengan data dan informasi pagination
      * @throws RuntimeException jika terjadi error
      */
-    public PagedResult<MasterUnitupi> getAllUnitsPaginated(int page, int size) {
+    public PagedResultDto<MasterUnitupi> getAllUnitsPaginated(int page, int size) {
         try {
             log.info("Mengambil data unit UPI dengan pagination: page={}, size={}", page, size);
 
@@ -65,7 +65,7 @@ public class UnitUpiService {
 
             log.info("Berhasil mengambil {} unit UPI (page {} of {})", units.size(), page, totalPages);
 
-            return PagedResult.<MasterUnitupi>builder()
+            return PagedResultDto.<MasterUnitupi>builder()
                     .content(units)
                     .page(page)
                     .size(size)

@@ -9,7 +9,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.iconpln.master_unitupi.controller.UnitUpiController;
 import org.iconpln.master_unitup.entity.MasterUnitUp;
 import org.iconpln.master_unitup.service.MasterUnitUpService;
+import org.iconpln.util.PagedResultDto;
 import org.iconpln.util.ResponseModel;
+import org.iconpln.util.ErrorResponse;
 
 import java.util.List;
 
@@ -42,16 +44,47 @@ public class MasterUnitUpController {
         } catch (Exception e) {
             log.error("Error pada getAllUnits", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(UnitUpiController.ErrorResponse.of(e.getMessage()))
+                    .entity(ErrorResponse.of(e.getMessage()))
                     .build();
         }
     }
 
-    /**
-     * Error Response DTO dengan Lombok
-     */
-    @Data(staticConstructor = "of")
-    public static class ErrorResponse {
-        private final String message;
+    @GET
+    @Path("/paginated")
+    public Response getAllUnitsPaginated(
+            @QueryParam("page") @DefaultValue("1") int page,
+            @QueryParam("size") @DefaultValue("10") int size) {
+        try {
+            log.info("REST: GET /api/unitup/paginated?page={}&size={}", page, size);
+
+            PagedResultDto<MasterUnitUp> pagedResultDto = service.getAllUnitsPaginated(page, size);
+
+            return Response.ok(new ResponseModel(
+                            "OK",
+                            true,
+                            200,
+                            pagedResultDto))
+                    .build();
+
+        } catch (IllegalArgumentException e) {
+            log.warn("Invalid pagination parameters: {}", e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(ErrorResponse.of(e.getMessage()))
+                    .build();
+
+        } catch (Exception e) {
+            log.error("Error pada getAllUnitsPaginated", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(ErrorResponse.of(e.getMessage()))
+                    .build();
+        }
     }
+
+//    /**
+//     * Error Response DTO dengan Lombok
+//     */
+//    @Data(staticConstructor = "of")
+//    public static class ErrorResponse {
+//        private final String message;
+//    }
 }

@@ -22,7 +22,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PagedResult<T> {
+public class PagedResultDto<T> {
 
     /**
      * List of data untuk halaman ini
