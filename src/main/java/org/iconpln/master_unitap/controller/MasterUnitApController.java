@@ -16,7 +16,7 @@ import org.iconpln.util.ResponseModel;
 @Path("/api/unitap")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Tag(name = "Master UnitAp", description = "Master UnitAp Controller")
+@Tag(name = "Master", description = "List Data Master Clickhouse")
 public class MasterUnitApController {
 
     @Inject

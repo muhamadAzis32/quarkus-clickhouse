@@ -25,7 +25,7 @@ import java.util.Optional;
 @Path("/api/uniupi")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Tag(name = "Master UnitUpi", description = "Master UnitUpi Controller")
+@Tag(name = "Master", description = "List Data Master Clickhouse")
 public class UnitUpiController {
 
     private final UnitUpiService service;

@@ -15,7 +15,7 @@ import org.iconpln.util.ErrorResponse;
 @Path("/api/unitup")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Tag(name = "Master UnitUp", description = "Master UnitUp Controller")
+@Tag(name = "Master", description = "List Data Master Clickhouse")
 public class MasterUnitUpController {
 
     @Inject
